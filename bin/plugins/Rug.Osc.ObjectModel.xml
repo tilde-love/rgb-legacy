@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Rug.Osc.ObjectModel</name>
+    </assembly>
+    <members>
+        <member name="P:Rug.Osc.Namespaces.Collections.Dictionary`2.Count">
+            <inheritdoc />
+        </member>
+        <member name="P:Rug.Osc.Namespaces.Collections.Dictionary`2.IsFixedSize">
+            <inheritdoc />
+        </member>
+        <member name="P:Rug.Osc.Namespaces.Collections.Dictionary`2.IsReadOnly">
+            <inheritdoc />
+        </member>
+        <member name="P:Rug.Osc.Namespaces.Collections.Dictionary`2.IsSynchronized">
+            <inheritdoc />
+        </member>
+        <member name="P:Rug.Osc.Namespaces.Collections.Dictionary`2.Keys">
+            <inheritdoc />
+        </member>
+        <member name="P:Rug.Osc.Namespaces.Collections.Dictionary`2.System#Collections#IDictionary#Keys">
+            <inheritdoc />
+        </member>
+        <member name="P:Rug.Osc.Namespaces.Collections.Dictionary`2.SyncRoot">
+            <inheritdoc />
+        </member>
+        <member name="P:Rug.Osc.Namespaces.Collections.Dictionary`2.Values">
+            <inheritdoc />
+        </member>
+        <member name="P:Rug.Osc.Namespaces.Collections.Dictionary`2.System#Collections#IDictionary#Values">
+            <inheritdoc />
+        </member>
+        <member name="P:Rug.Osc.Namespaces.Collections.Dictionary`2.Item(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="P:Rug.Osc.Namespaces.Collections.Dictionary`2.Item(`0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.Dictionary`2.Add(System.Collections.Generic.KeyValuePair{`0,`1})">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.Dictionary`2.Add(System.Object,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.Dictionary`2.Add(`0,`1)">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.Dictionary`2.Clear">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.Dictionary`2.Contains(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.Dictionary`2.Contains(System.Collections.Generic.KeyValuePair{`0,`1})">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.Dictionary`2.ContainsKey(`0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.Dictionary`2.CopyTo(System.Array,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.Dictionary`2.CopyTo(System.Collections.Generic.KeyValuePair{`0,`1}[],System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.Dictionary`2.GetEnumerator">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.Dictionary`2.System#Collections#IDictionary#GetEnumerator">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.Dictionary`2.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.Dictionary`2.Remove(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.Dictionary`2.Remove(System.Collections.Generic.KeyValuePair{`0,`1})">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.Dictionary`2.Remove(`0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.Dictionary`2.TryGetValue(`0,`1@)">
+            <inheritdoc />
+        </member>
+        <member name="P:Rug.Osc.Namespaces.Collections.List`1.Count">
+            <inheritdoc />
+        </member>
+        <member name="P:Rug.Osc.Namespaces.Collections.List`1.IsFixedSize">
+            <inheritdoc />
+        </member>
+        <member name="P:Rug.Osc.Namespaces.Collections.List`1.IsSynchronized">
+            <inheritdoc />
+        </member>
+        <member name="P:Rug.Osc.Namespaces.Collections.List`1.SyncRoot">
+            <inheritdoc />
+        </member>
+        <member name="P:Rug.Osc.Namespaces.Collections.List`1.Item(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="P:Rug.Osc.Namespaces.Collections.List`1.System#Collections#IList#Item(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.List`1.Add(`0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.List`1.Add(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.List`1.Clear">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.List`1.Contains(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.List`1.Contains(`0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.List`1.CopyTo(System.Array,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.List`1.CopyTo(`0[],System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.List`1.GetEnumerator">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.List`1.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.List`1.IndexOf(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.List`1.IndexOf(`0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.List`1.Insert(System.Int32,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.List`1.Insert(System.Int32,`0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.List`1.Remove(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.List`1.Remove(`0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Rug.Osc.Namespaces.Collections.List`1.RemoveAt(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="T:Rug.Osc.Reflection.OscInvoker">
+            <summary>
+            Manages osc address event listening
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,1080 @@
+﻿<Host Bounds="0,0,0,0" Enabled="True" Name="/" ThreadName="Osc Host v1.0" Version="0.1.0.0" >
+  <Namespace>
+    <Sys/>
+    <Meta/>
+
+    <!--<SlipOsc Name="/cave-input-1" Port="/dev/ttyACM0" />
+    <SlipOsc Name="/cave-input-2" Port="/dev/ttyACM1" />-->
+
+    <!--<SlipOsc Name="/cave-input-1" Port="Win32NT:COM7;Unix:/dev/ttyACM0" />-->
+    <!--<SlipOsc Name="/cave-input-1" Port="/dev/ttyACM0" />-->
+
+    <Tick Name="/frame-pulse" Interval="1" />
+    <Tick Name="/distace-pulse" Interval="10000" />
+
+    <Rgb.FftInput8 Name="/1" CompressionSpeed="0" Threshold="0.07" Gain="1" Broadcast="false" Messages=",,,,,,,," />
+
+    <Rgb.HueDriver Name="/thud-detector" InputRange="0,1" OutputRange="0,100" Saturation="1" Lightness="0.5" Message="/color-source-1/block/color" />
+    <Rgb.ValueDriver Name="/tap-detector" InputRange="0.1,1" OutputRange="0.0,1" Message="/color-source-1/block/amount" />
+    <Rgb.ValueDriver Name="/click-detector" InputRange="0,0.5" OutputRange="0.0,0.1" Message="/color-source-2/grad/amount" />
+
+    <Rgb.ValueDriver Name="/growl-detector" InputRange="0,1" OutputRange="0.0,1" Message="/color-source-3/grad/amount" />
+
+    <Rgb.ValueDriver Name="/dblbass-detector" InputRange="0.1,1" OutputRange="0.0,1" Message="/color-source-2/block/amount" />
+    <Rgb.ValueDriver Name="/dblbass-detector-2" InputRange="0.1,1" OutputRange="0.0,1" Message="/color-source-2/block1/amount" />
+    <Rgb.ValueDriver Name="/dblbass-detector-3" InputRange="0.1,1" OutputRange="0.0,1" Message="/color-source-2/block2/amount" />
+    <Rgb.HueDriver Name="/dblbass-detector-4" InputRange="0,1" OutputRange="220,260" Saturation="0.7" Lightness="0.5" Message="/color-source-2/block2/color" />
+
+    <Rgb.ValueDriver Name="/subbass-detector" InputRange="0,1" OutputRange="0.0,1" Message="/color-source-3/grad/amount" />
+    <Rgb.ValueDriver Name="/bell-detector" InputRange="0.17,1" OutputRange="0.0,1" Message="/color-source-1/block/amount" />
+    <Rgb.HueDriver Name="/bell-detector-2" InputRange="0,1" OutputRange="100,260" Saturation="0.7" Lightness="0.5" Message="/color-source-1/block/color" />
+    <Rgb.ValueDriver Name="/bell-detector-3" InputRange="0,1" OutputRange="0.0,1" Message="/color-source-2/block/amount" />
+
+    <Rgb.ValueDriver Name="/tab-detector" InputRange="0,1" OutputRange="0.0,1" Message="/thud-detector/lightness" />
+    
+    <Rgb.ValueDriver Name="/sun-detector" InputRange="0.4,1" OutputRange="0.0,1" Message="/color-source-3/add-grad/amount" />
+    
+    <!--<Rgb.AnalogInput8 Name="/cave-2" CompressionSpeed="0" Threshold="0.5" Gain="1" Broadcast="true" Messages="/bg-color/update,/sub/update,/c-2-low-l/update,/sub-color/update,/color-source-3/grad/amount,/c-2-low-h/update,/high-color/update,/high/update" />
+
+    <Rgb.ValueDriver Name="/c-2-low-l" InputRange="0.2,0.4" OutputRange="0.0,0.5" Message="/c-2-low-h/lightness" />
+    -->
+    <!--Rgb.ValueDriver Name="/c-2-low-s" InputRange="0.2,1" OutputRange="0.0,1" Message="/c-2-low-h/saturation" /-->
+    <!--
+    <Rgb.HueDriver Name="/c-2-low-h" InputRange="0.2,1" OutputRange="60,120" Saturation="1" Lightness="0.5" Message="/color-source-2/block/color" />
+
+    <Rgb.ValueDriver Name="/sub" InputRange="0.15,1" OutputRange="0.0,0.2" Message="/sub-color/lightness" />
+    <Rgb.HueDriver Name="/sub-color" InputRange="0.1,1" OutputRange="140,200" Saturation="1" Lightness="0.5" Message="/color-source-1/grad/end" />
+
+    <Rgb.ValueDriver Name="/high" InputRange="0.1,0.2" OutputRange="0.01,0.0" Message="/high-color/lightness" />
+    <Rgb.HueDriver Name="/high-color" InputRange="0.1,0.5" OutputRange="270,300" Saturation="1" Lightness="0.5" Message="/color-source-1/grad/start" />
+
+    <Rgb.HueDriver Name="/bg-color" InputRange="0.1,1" OutputRange="0,360" Saturation="0.7" Lightness="0.1" Message="/color-source-3/grad/start" />-->
+
+    <Rgb.BufferRgbF Name="/field" Width="400" Height="400" TimingSource="/distace-pulse" Debug="false">
+      <Rgb.Effects.DistanceField Name="/distance" Enabled="True">
+        <Rgb.Effects.DistanceFieldCenter Name="/r0" Channel="0" Position="0.5,0.5" />
+        <Rgb.Effects.DistanceFieldCenter Name="/g0" Channel="1" Position="0.5,0.25" Randomise="True" />
+        <Rgb.Effects.DistanceFieldCenter Name="/g1" Channel="1" Position="0.5,0.25" Randomise="True" />
+        <Rgb.Effects.DistanceFieldCenter Name="/g2" Channel="1" Position="0.5,0.25" Randomise="True" />
+        <!--<Rgb.Effects.DistanceFieldCenter Name="/b0" Channel="2" Position="0.25,0.5" />
+        <Rgb.Effects.DistanceFieldCenter Name="/b1" Channel="2" Position="0.75,0.5" />-->
+        <Rgb.Effects.DistanceFieldCenter Name="/hem" Channel="2" Position="0.5,0.5" />
+      </Rgb.Effects.DistanceField>
+    </Rgb.BufferRgbF>
+    
+    <Rgb.BufferRgbF Name="/color-source-1" Width="200" Height="2" TimingSource="/frame-pulse" Debug="false">
+      <!--<Rgb.Effects.Set Name="/set" Color="0,0,0" Amount="1" />-->
+      <!--<Rgb.Effects.Gradient Name="/grad" Start="0,0,1" End="0,0,0" Amount="1" />-->
+
+      <Rgb.Effects.Multiply Name="/fade" Color="0.7, 0.2, 0.8" Amount="1" Time="1"  Enabled="True"/>
+      <Rgb.Effects.Shift Name="/shift"  Enabled="True"/>
+      <Rgb.Effects.Block Name="/block" Color="1,0,0" Amount="0" Enabled="True"/>
+    </Rgb.BufferRgbF>
+
+    <Rgb.BufferRgbF Name="/color-source-2" Width="200" Height="2" TimingSource="/frame-pulse" Debug="false">
+      <!--<Rgb.Effects.Multiply Name="/fade" Color="0.9, 0.9, 0.9" Amount="1" Time="1" />
+      <Rgb.Effects.Shift Name="/shift" />
+      <Rgb.Effects.Block Name="/block" Amount="1" />-->
+      <Rgb.Effects.Multiply Name="/fade" Color="0.7, 0.7, 0.7" Amount="1" Time="0.025" Enabled="True" />
+      <Rgb.Effects.Shift Name="/shift" Enabled="False"/>
+      <Rgb.Effects.Splat Name="/block" Color="0,0.1,0.5" Amount="0" Trigger="0.3" Size="20" CenterRange="0, 0.5" Enabled="True"/>
+      <Rgb.Effects.Splat Name="/block1" Color="0,0.3,0.7" Amount="0" Trigger="0.1" Size="15" CenterRange="0, 0.5" Enabled="True"/>
+      <Rgb.Effects.Splat Name="/block2" Color="0,0.7,0.3" Amount="0" Trigger="0.9" Size="10" CenterRange="0, 0.5" Enabled="True"/>
+    </Rgb.BufferRgbF>
+
+    <Rgb.BufferRgbF Name="/color-source-3" Width="400" Height="2" TimingSource="/frame-pulse" Debug="false">
+      <!--<Rgb.Effects.Gradient Name="/grad" Start="0.1,0,0" End="0,0.1,0.1" Amount="1" />-->
+      <!--<Rgb.Effects.Set Name="/set" Color="0,0,0" Amount="1" />-->
+      <!--<Rgb.Effects.Gradient Name="/grad" Start="0,0,0" End="0.1, 0.6, 0.3" XStart="0.5" XEnd="1" Amount="0" />-->
+      <Rgb.Effects.Gradient Name="/grad" Start="0,0,0" End="0.4, 0.2, 0.8" XStart="0.2" XEnd="1" Amount="1"  Enabled="True"/>
+
+      <Rgb.Effects.Multiply Name="/fade" Color="0.2, 0.2, 0.99" Amount="1" Time="0.6" Enabled="False" />
+      <Rgb.Effects.AddGradient Name="/add-grad" Start="0,0,0" End="0.4, 0.2, 0.8" XStart="0.2" XEnd="1" Amount="1" Enabled="False"/>
+      <!--<Rgb.Effects.Gradient Name="/grad" Start="1,0,0" End="0,0,0" Amount="1" />-->
+
+      <!--<Rgb.Effects.Multiply Name="/fade" Color="0.7, 0.2, 0.8" Amount="1" Time="1" />
+      <Rgb.Effects.Shift Name="/shift" />
+      <Rgb.Effects.Block Name="/block" Color="1,0,0" Amount="1"/>-->
+    </Rgb.BufferRgbF>
+
+    <Rgb.BufferRgbF Name="/buffer" Width="400" Height="400" TimingSource="/frame-pulse" Debug="false">
+      <!-- Rgb.Effects.Set Name="/set" Color="0,0,0" Amount="1" Enabled="True" / -->
+      <!--<Rgb.Effects.Multiply Name="/fade" Color="0.4, 0.4, 0.4" Amount="1" Time="0.001" />
+      <Rgb.Effects.Stripe Name="/stripe" Color="0.7,0.2,0.9" Amount="1" Speed="0.01" Orientation="Horizontal" />-->
+      <Rgb.Effects.Sampler Name="/sampler"
+        Field="/field"
+        Source0="/color-source-1"
+        Source1="/color-source-2"
+        Source2="/color-source-3"                    
+        ReverseSource0="false"
+        Enabled="True"
+      />
+      <!--<Rgb.Effects.Set Name="/set" Color="1,0,0" Amount="1" />-->
+    </Rgb.BufferRgbF>
+
+    <Rgb.LedMapping Name="/mapping" Buffer="/buffer" AutoScale="True">
+      <Rgb.LedSingle Name="/0" Position="0.4999999, 0.5" />
+      <Rgb.LedLine Name="/1" Count="5">
+        <Point Name="/0" Position="0.2861431, 0.5271739" />
+        <Point Name="/1" Position="0.2968359, 0.5923913" />
+        <Point Name="/2" Position="0.3556466, 0.6739131" />
+        <Point Name="/3" Position="0.4465357, 0.7173913" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/2" Count="9">
+        <Point Name="/0" Position="0.4732678, 0.7173913" />
+        <Point Name="/1" Position="0.4732678, 0.5815217" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/3" Count="9">
+        <Point Name="/0" Position="0.3930715, 0.5489131" />
+        <Point Name="/1" Position="0.4091108, 0.6195652" />
+        <Point Name="/2" Position="0.4304965, 0.6902174" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/4" Count="5">
+        <Point Name="/0" Position="0.4304965, 0.6902174" />
+        <Point Name="/1" Position="0.3877251, 0.6521739" />
+        <Point Name="/2" Position="0.3503001, 0.5869566" />
+        <Point Name="/3" Position="0.3396073, 0.5434783" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/5" Count="13">
+        <Point Name="/0" Position="0.2861431, 0.5" />
+        <Point Name="/1" Position="0.3503001, 0.3478261" />
+        <Point Name="/2" Position="0.4999999, 0.2826087" />
+        <Point Name="/3" Position="0.6336605, 0.3369565" />
+        <Point Name="/4" Position="0.7138568, 0.5" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/6" Count="6">
+        <Point Name="/0" Position="0.4999999, 0.2961957" />
+        <Point Name="/1" Position="0.4999999, 0.4266304" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/7" Count="10">
+        <Point Name="/0" Position="0.5534642, 0.5" />
+        <Point Name="/1" Position="0.5427713, 0.4782609" />
+        <Point Name="/2" Position="0.5213856, 0.451087" />
+        <Point Name="/3" Position="0.4732678, 0.451087" />
+        <Point Name="/4" Position="0.4572285, 0.4782609" />
+        <Point Name="/5" Position="0.4465357, 0.5" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/8" Count="6">
+        <Point Name="/0" Position="0.4198036, 0.4402174" />
+        <Point Name="/1" Position="0.3930715, 0.5" />
+        <Point Name="/2" Position="0.4198036, 0.5543478" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/9" Count="6">
+        <Point Name="/0" Position="0.4732678, 0.5" />
+        <Point Name="/1" Position="0.4839607, 0.4673913" />
+        <Point Name="/2" Position="0.5160392, 0.4673913" />
+        <Point Name="/3" Position="0.526732, 0.5" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/10" Count="6">
+        <Point Name="/0" Position="0.5801963, 0.4565217" />
+        <Point Name="/1" Position="0.6069283, 0.5" />
+        <Point Name="/2" Position="0.5801963, 0.5543478" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/11" Count="9">
+        <Point Name="/0" Position="0.526732, 0.5815217" />
+        <Point Name="/1" Position="0.526732, 0.7173913" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/12" Count="5">
+        <Point Name="/0" Position="0.5695034, 0.6902174" />
+        <Point Name="/1" Position="0.6122748, 0.6413044" />
+        <Point Name="/2" Position="0.6496997, 0.5869566" />
+        <Point Name="/3" Position="0.6603926, 0.5543478" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/13" Count="9">
+        <Point Name="/0" Position="0.6069283, 0.5597826" />
+        <Point Name="/1" Position="0.5855427, 0.6304348" />
+        <Point Name="/2" Position="0.5374249, 0.6847826" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/14" Count="5">
+        <Point Name="/0" Position="0.5534642, 0.7173913" />
+        <Point Name="/1" Position="0.6336605, 0.6902174" />
+        <Point Name="/2" Position="0.7138568, 0.5978261" />
+        <Point Name="/3" Position="0.7138568, 0.5271739" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/15" Count="13">
+        <Point Name="/0" Position="0.7138568, 0.08009151" />
+        <Point Name="/1" Position="0.4506483, 0.2173913" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/16" Count="13">
+        <Point Name="/0" Position="0.3848462, 0.1716247" />
+        <Point Name="/1" Position="0.565802, 0" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/17" Count="6">
+        <Point Name="/0" Position="0.3519451, 0" />
+        <Point Name="/1" Position="0.286143, 0.1334859" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/18" Count="13">
+        <Point Name="/0" Position="0.9646674, 0.4783121" />
+        <Point Name="/1" Position="0.7160912, 0.3152496" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/19" Count="13">
+        <Point Name="/0" Position="0.7221808, 0.2344381" />
+        <Point Name="/1" Position="0.9588736, 0.3079281" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/20" Count="6">
+        <Point Name="/0" Position="0.8519452, 0.1196617" />
+        <Point Name="/1" Position="0.7053214, 0.1284765" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/21" Count="13">
+        <Point Name="/0" Position="0.7508105, 0.8982207" />
+        <Point Name="/1" Position="0.7654428, 0.5978582" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/22" Count="13">
+        <Point Name="/0" Position="0.8373346, 0.5628134" />
+        <Point Name="/1" Position="0.8930715, 0.8079281" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/23" Count="6">
+        <Point Name="/0" Position="1, 0.6196617" />
+        <Point Name="/1" Position="0.9191784, 0.4949906" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/24" Count="13">
+        <Point Name="/0" Position="0.2861431, 0.9199085" />
+        <Point Name="/1" Position="0.5493516, 0.7826087" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/25" Count="13">
+        <Point Name="/0" Position="0.6151537, 0.8283753" />
+        <Point Name="/1" Position="0.4341979, 1" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/26" Count="6">
+        <Point Name="/0" Position="0.6480548, 0.9999999" />
+        <Point Name="/1" Position="0.7138569, 0.8665141" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/27" Count="13">
+        <Point Name="/0" Position="0.03533247, 0.5216879" />
+        <Point Name="/1" Position="0.2839086, 0.6847504" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/28" Count="13">
+        <Point Name="/0" Position="0.2778191, 0.7655619" />
+        <Point Name="/1" Position="0.04112633, 0.6920719" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/29" Count="6">
+        <Point Name="/0" Position="0.1480548, 0.8803383" />
+        <Point Name="/1" Position="0.2946784, 0.8715235" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/30" Count="13">
+        <Point Name="/0" Position="0.2491893, 0.1017794" />
+        <Point Name="/1" Position="0.234557, 0.4021418" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/31" Count="13">
+        <Point Name="/0" Position="0.1626654, 0.4371866" />
+        <Point Name="/1" Position="0.1069283, 0.192072" />
+      </Rgb.LedLine>
+      <Rgb.LedLine Name="/32" Count="6">
+        <Point Name="/0" Position="0, 0.3803384" />
+        <Point Name="/1" Position="0.08082156, 0.5050094" />
+      </Rgb.LedLine>
+    </Rgb.LedMapping>
+    
+    <!--<Rgb.LedMapping Name="/mapping" Buffer="/buffer" AutoScale="True" >-->
+      <!--<Rgb.LedLine Name="/0" Count="5">-->
+        <!--<Point Name="/0" Position="6,10.5" />-->
+        <!--<Point Name="/1" Position="6.2,11.7" />-->
+        <!--<Point Name="/2" Position="7.3,13.2" />-->
+        <!--<Point Name="/3" Position="9,14" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/1" Count="9">-->
+        <!--<Point Name="/4" Position="9.5,14" />-->
+        <!--<Point Name="/5" Position="9.5,11.5" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/2" Count="9">-->
+        <!--<Point Name="/6" Position="8,10.9" />-->
+        <!--<Point Name="/7" Position="8.3,12.2" />-->
+        <!--<Point Name="/8" Position="8.7,13.5" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/3" Count="5">-->
+        <!--<Point Name="/9" Position="8.7,13.5" />-->
+        <!--<Point Name="/10" Position="7.9,12.8" />-->
+        <!--<Point Name="/11" Position="7.2,11.6" />-->
+        <!--<Point Name="/12" Position="7,10.8" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/4" Count="13">-->
+        <!--<Point Name="/13" Position="6,10" />-->
+        <!--<Point Name="/14" Position="7.2,7.2" />-->
+        <!--<Point Name="/15" Position="10,6" />-->
+        <!--<Point Name="/16" Position="12.5,7" />-->
+        <!--<Point Name="/17" Position="14,10" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/5" Count="6">-->
+        <!--<Point Name="/18" Position="10,6.25" />-->
+        <!--<Point Name="/19" Position="10,8.65" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/6" Count="10">-->
+        <!--<Point Name="/20" Position="11,10" />-->
+        <!--<Point Name="/21" Position="10.8,9.6" />-->
+        <!--<Point Name="/22" Position="10.4,9.1" />-->
+        <!--<Point Name="/23" Position="9.5,9.1" />-->
+        <!--<Point Name="/24" Position="9.2,9.6" />-->
+        <!--<Point Name="/25" Position="9,10" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/7" Count="6">-->
+        <!--<Point Name="/26" Position="8.5,8.9" />-->
+        <!--<Point Name="/27" Position="8,10" />-->
+        <!--<Point Name="/28" Position="8.5,11" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/8" Count="6">-->
+        <!--<Point Name="/29" Position="9.5,10" />-->
+        <!--<Point Name="/30" Position="9.7,9.4" />-->
+        <!--<Point Name="/31" Position="10.3,9.4" />-->
+        <!--<Point Name="/32" Position="10.5,10" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/9" Count="6">-->
+        <!--<Point Name="/33" Position="11.5,9.2" />-->
+        <!--<Point Name="/34" Position="12,10" />-->
+        <!--<Point Name="/35" Position="11.5,11" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/10" Count="9">-->
+        <!--<Point Name="/36" Position="10.5,11.5" />-->
+        <!--<Point Name="/37" Position="10.5,14" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/11" Count="5">-->
+        <!--<Point Name="/38" Position="11.3,13.5" />-->
+        <!--<Point Name="/39" Position="12.1,12.6" />-->
+        <!--<Point Name="/40" Position="12.8,11.6" />-->
+        <!--<Point Name="/41" Position="13,11" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/12" Count="9">-->
+        <!--<Point Name="/42" Position="12,11.1" />-->
+        <!--<Point Name="/43" Position="11.6,12.4" />-->
+        <!--<Point Name="/44" Position="10.7,13.4" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/13" Count="5">-->
+        <!--<Point Name="/45" Position="11,14" />-->
+        <!--<Point Name="/46" Position="12.5,13.5" />-->
+        <!--<Point Name="/47" Position="14,11.8" />-->
+        <!--<Point Name="/48" Position="14,10.5" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/14" Count="13">-->
+        <!--<Point Name="/49" Position="10,1.8" />-->
+        <!--<Point Name="/50" Position="6.8,6.9" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/15" Count="13">-->
+        <!--<Point Name="/51" Position="4,7.6" />-->
+        <!--<Point Name="/52" Position="6.5,0" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/16" Count="6">-->
+        <!--<Point Name="/53" Position="1.8,4.3" />-->
+        <!--<Point Name="/54" Position="2.3,7.2" />-->
+      <!--</Rgb.LedLine>-->
+
+
+      <!--<Rgb.LedLine Name="/17" Count="13">-->
+        <!--<Point Name="/55" Position="2.3,7.2" />-->
+        <!--<Point Name="/56" Position="6.3,12.2" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/18" Count="13">-->
+        <!--<Point Name="/57" Position="6.3,15" />-->
+        <!--<Point Name="/58" Position="0,10.5" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/19" Count="6">-->
+        <!--<Point Name="/59" Position="1.6,15.5" />-->
+        <!--<Point Name="/60" Position="5,16" />-->
+      <!--</Rgb.LedLine>-->
+
+
+
+      <!--<Rgb.LedLine Name="/20" Count="13">-->
+        <!--<Point Name="/61" Position="5.5,16" />-->
+        <!--<Point Name="/62" Position="11.6,14" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/21" Count="13">-->
+        <!--<Point Name="/63" Position="13.8,15.2" />-->
+        <!--<Point Name="/64" Position="7.6,20" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/22" Count="6">-->
+        <!--<Point Name="/65" Position="12.8,20" />-->
+        <!--<Point Name="/66" Position="14.7,16.6" />-->
+      <!--</Rgb.LedLine>-->
+
+
+
+      <!--<Rgb.LedLine Name="/23" Count="13">-->
+        <!--<Point Name="/67" Position="14.7,16.3" />-->
+        <!--<Point Name="/68" Position="14.5,10" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/24" Count="13">-->
+        <!--<Point Name="/69" Position="16.9,7.8" />-->
+        <!--<Point Name="/70" Position="18.5,15.5" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/25" Count="6">-->
+        <!--<Point Name="/71" Position="20,11.3" />-->
+        <!--<Point Name="/72" Position="18.2,7.4" />-->
+      <!--</Rgb.LedLine>-->
+
+
+      <!--<Rgb.LedLine Name="/26" Count="13">-->
+        <!--<Point Name="/73" Position="17.8,7.3" />-->
+        <!--<Point Name="/74" Position="11.3,5.8" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/27" Count="13">-->
+        <!--<Point Name="/75" Position="10,3.8" />-->
+        <!--<Point Name="/76" Position="18,3.7" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/28" Count="6">-->
+        <!--<Point Name="/77" Position="14.3,0" />-->
+        <!--<Point Name="/78" Position="10.0,1.8" />-->
+      <!--</Rgb.LedLine>-->
+
+
+      <!--&lt;!&ndash;<Rgb.LedLine Name="/5" Count="6">-->
+        <!--<Point Name="/18" Position="," />-->
+      <!--</Rgb.LedLine>&ndash;&gt;-->
+
+    <!--</Rgb.LedMapping>-->
+
+    <!--<Rgb.OpenPixelControlClient Name="/opc"
+                                Address="net.tcp://127.0.0.1:7890" Channel="0"
+                                Mapping="/mapping"
+                                TimingSource="/frame-pulse"
+                                BrgOrder="true"
+                                Gain="2"
+                                />-->
+
+
+    <Rgb.XOscRgb Name="/xosc"
+                Address="net.tcp://192.168.0.103:9100" Channel="1"
+                Mapping="/mapping"
+                TimingSource="/frame-pulse"
+                GrbOrder="False"
+                Gain="1"
+    />
+
+    <Rgb.OpenPixelControlServer Name="/monitor"
+                                Port="7005"
+                                Buffer="/buffer"
+                                TimingSource="/frame-pulse"
+                                />
+
+    <!--<Rpi.FrameBuffer Name="/framebuffer"
+                     Buffer="/buffer"
+                     TimingSource="/frame-pulse"
+                     />-->
+
+<!-- 
+    1, 0 blank
+    2, 0 i am here
+    3, 0 feet
+    4, 0 sea
+    5, 0 dawn
+    6, 0 reich
+    7, 0 clouds
+    8, 0 brick
+    9, 0 tabla
+    10, 0-5 heart
+    16, 0, blank
+    17, 0 i am here
+    
+/scene/blank
+/scene/here-i-am
+/scene/feet
+/scene/butterflies
+/scene/reich
+/scene/clouds
+/scene/tabla
+/scene/sea
+/scene/dawn
+/scene/heart
+/scene/bricks
+-->
+
+
+    <SceneGroup Name="/scenes" >
+      <Scene Id="1"  Name="/1-blank"    ><Script Name="/0" Enabled="false"><![CDATA[/scene/blank/.]]></Script></Scene>
+      <Scene Id="2"  Name="/2-i-am-here"><Script Name="/0" Enabled="false"><![CDATA[/scene/here-i-am/.]]></Script></Scene>
+      <Scene Id="3"  Name="/3-feet"     ><Script Name="/0" Enabled="false"><![CDATA[/scene/feet/.]]></Script></Scene>
+      <Scene Id="4"  Name="/4-sea"      ><Script Name="/0" Enabled="false"><![CDATA[/scene/sea/.]]></Script></Scene>
+      <Scene Id="5"  Name="/5-dawn"     ><Script Name="/0" Enabled="false"><![CDATA[/scene/dawn/.]]></Script></Scene>
+      <Scene Id="6"  Name="/6-reich"    ><Script Name="/0" Enabled="false"><![CDATA[/scene/reich/.]]></Script></Scene>
+      <Scene Id="7"  Name="/7-clouds"   ><Script Name="/0" Enabled="false"><![CDATA[/scene/clouds/.]]></Script></Scene>
+      <Scene Id="8"  Name="/8-brick"    ><Script Name="/0" Enabled="false"><![CDATA[/scene/bricks/.]]></Script></Scene>
+      <Scene Id="9"  Name="/9-tabla"    ><Script Name="/0" Enabled="false"><![CDATA[/scene/tabla/.]]></Script></Scene>
+      <Scene Id="10" Name="/9-heart"    >
+        <Script Name="/0" Enabled="false"><![CDATA[/scene/heart/.]]></Script>
+        <Script Name="/1" Enabled="false"><![CDATA[/scene/heart/.]]></Script>
+        <Script Name="/2" Enabled="false"><![CDATA[/scene/heart/.]]></Script>
+        <Script Name="/3" Enabled="false"><![CDATA[/scene/heart/.]]></Script>
+        <Script Name="/4" Enabled="false"><![CDATA[/scene/heart/.]]></Script>
+      </Scene>
+      <Scene Id="16"  Name="/16-blank"  ><Script Name="/0" Enabled="false"><![CDATA[/scene/blank/.]]></Script></Scene>
+      <Scene Id="17"  Name="/17-i-am-here"><Script Name="/0" Enabled="false"><![CDATA[/scene/here-i-am/.]]></Script></Scene>
+    </SceneGroup>
+
+    <Script Name="/util/reset-detectors-1" Enabled="false"> 
+      <![CDATA[
+/thud-detector/message, "/color-source-1/block/color"
+/thud-detector/input-range, 0f, 1f
+/thud-detector/output-range, 0f, 100f
+/thud-detector/saturation, 1f
+/thud-detector/lightness, 0.5f
+/thud-detector/enabled, True
+/tap-detector/message, "/color-source-1/block/amount"
+/tap-detector/input-range, 0.1f, 1f
+/tap-detector/output-range, 0f, 1f
+/tap-detector/enabled, True
+/click-detector/message, "/color-source-2/grad/amount"
+/click-detector/input-range, 0f, 0.5f
+/click-detector/output-range, 0f, 0.1f
+/click-detector/enabled, True
+/growl-detector/message, "/color-source-3/grad/amount"
+/growl-detector/input-range, 0f, 1f
+/growl-detector/output-range, 0f, 1f
+/growl-detector/enabled, True
+        ]]>    
+    </Script>
+    
+    <Script Name="/util/reset-detectors-2" Enabled="false"> 
+      <![CDATA[
+/dblbass-detector/message, "/color-source-2/block/amount"
+/dblbass-detector/input-range, 0.1f, 1f
+/dblbass-detector/output-range, 0f, 1f
+/dblbass-detector/enabled, True
+/dblbass-detector-2/message, "/color-source-2/block1/amount"
+/dblbass-detector-2/input-range, 0.1f, 1f
+/dblbass-detector-2/output-range, 0f, 1f
+/dblbass-detector-2/enabled, True
+/dblbass-detector-3/message, "/color-source-2/block2/amount"
+/dblbass-detector-3/input-range, 0.1f, 1f
+/dblbass-detector-3/output-range, 0f, 1f
+/dblbass-detector-3/enabled, True
+/dblbass-detector-4/message, "/color-source-2/block2/color"
+/dblbass-detector-4/input-range, 0f, 1f
+/dblbass-detector-4/output-range, 220f, 260f
+/dblbass-detector-4/saturation, 0.7f
+/dblbass-detector-4/lightness, 0.5f
+/dblbass-detector-4/enabled, True
+/subbass-detector/message, "/color-source-3/grad/amount"
+/subbass-detector/input-range, 0f, 1f
+/subbass-detector/output-range, 0f, 1f
+/subbass-detector/enabled, True
+        ]]>    
+    </Script>
+    
+    <Script Name="/util/reset-detectors-3" Enabled="false"> 
+      <![CDATA[
+/bell-detector/message, "/color-source-1/block/amount"
+/bell-detector/input-range, 0.17f, 1f
+/bell-detector/output-range, 0f, 1f
+/bell-detector/enabled, True
+/bell-detector-2/message, "/color-source-1/block/color"
+/bell-detector-2/input-range, 0f, 1f
+/bell-detector-2/output-range, 100f, 260f
+/bell-detector-2/saturation, 0.7f
+/bell-detector-2/lightness, 0.5f
+/bell-detector-2/enabled, True
+/bell-detector-3/message, "/color-source-2/block/amount"
+/bell-detector-3/input-range, 0f, 1f
+/bell-detector-3/output-range, 0f, 1f
+/bell-detector-3/enabled, True
+/tab-detector/message, "/thud-detector/lightness"
+/tab-detector/input-range, 0f, 1f
+/tab-detector/output-range, 0f, 1f
+/tab-detector/enabled, True
+/sun-detector/message, "/color-source-3/add-grad/amount"
+/sun-detector/input-range, 0.4f, 1f
+/sun-detector/output-range, 0f, 1f
+/sun-detector/enabled, True      
+        ]]>    
+    </Script>
+
+    <Script Name="/util/reset-field" Enabled="false"> 
+      <![CDATA[   
+      
+/field/distance/r0/position, 0.5f, 0.5f
+/field/distance/r0/channel, 0
+/field/distance/r0/randomise, False
+/field/distance/r0/bounds, 0f, 0f, 0f, 0f
+/field/distance/r0/enabled, True
+/field/distance/g0/position, 0.1332576f, 0.4384009f
+/field/distance/g0/channel, 1
+/field/distance/g0/randomise, True
+/field/distance/g0/enabled, True
+/field/distance/g1/position, 0.3040728f, 0.8893744f
+/field/distance/g1/channel, 1
+/field/distance/g1/randomise, True
+/field/distance/g1/bounds, 0f, 0f, 0f, 0f
+/field/distance/g1/enabled, True
+/field/distance/g2/position, 0.04131773f, 0.7046174f
+/field/distance/g2/channel, 1
+/field/distance/g2/randomise, True
+/field/distance/g2/enabled, True
+/field/distance/hem/position, 0.5f, 0.5f
+/field/distance/hem/channel, 2
+/field/distance/hem/randomise, False
+/field/distance/hem/enabled, True
+/field/distance/enabled, True
+/field/enabled, True
+         ]]>    
+    </Script>
+
+    <Script Name="/util/reset-colors-1" Enabled="false"> 
+      <![CDATA[   
+/color-source-1/fade/time, 1f
+/color-source-1/fade/amount, 1f
+/color-source-1/fade/color, 0.7f, 0.2f, 0.8f
+/color-source-1/fade/enabled, True
+/color-source-1/shift/enabled, True
+/color-source-1/block/amount, 0f
+/color-source-1/block/color, 0.5019608f, 0f, 0f
+/color-source-1/block/time, 0f
+/color-source-1/block/position, 0f
+/color-source-1/block/enabled, True
+/color-source-1/enabled, True
+         ]]>    
+    </Script>
+
+    <Script Name="/util/reset-colors-2" Enabled="false"> 
+      <![CDATA[  
+/color-source-2/fade/time, 0.025f
+/color-source-2/fade/amount, 1f
+/color-source-2/fade/color, 0.7f, 0.7f, 0.7f
+/color-source-2/fade/enabled, True
+/color-source-2/shift/enabled, False
+/color-source-2/block/amount, 0f
+/color-source-2/block/trigger, 0.3f
+/color-source-2/block/color, 0f, 0.1f, 0.5f
+/color-source-2/block/size, 20f
+/color-source-2/block/center-range, 0f, 0.5f
+/color-source-2/block/enabled, True
+/color-source-2/block1/amount, 0f
+/color-source-2/block1/trigger, 0.1f
+/color-source-2/block1/color, 0f, 0.3f, 0.7f
+/color-source-2/block1/size, 15f
+/color-source-2/block1/center-range, 0f, 0.5f
+/color-source-2/block1/enabled, True
+/color-source-2/block2/amount, 0f
+/color-source-2/block2/trigger, 0.9f
+/color-source-2/block2/color, 0f, 0.7f, 0.3f
+/color-source-2/block2/size, 10f
+/color-source-2/block2/center-range, 0f, 0.5f
+/color-source-2/block2/enabled, True
+/color-source-2/enabled, True
+         ]]>    
+    </Script>
+
+    <Script Name="/util/reset-colors-3" Enabled="false"> 
+      <![CDATA[  
+/color-source-3/grad/amount, 0f
+/color-source-3/grad/end, 0.4f, 0.2f, 0.8f
+/color-source-3/grad/start, 0f, 0f, 0f
+/color-source-3/grad/x-end, 1f
+/color-source-3/grad/x-start, 0.2f
+/color-source-3/grad/enabled, True
+/color-source-3/fade/time, 0.6f
+/color-source-3/fade/amount, 1f
+/color-source-3/fade/color, 0.2f, 0.2f, 0.99f
+/color-source-3/add-grad/amount, 1f
+/color-source-3/add-grad/end, 0.4f, 0.2f, 0.8f
+/color-source-3/add-grad/start, 0f, 0f, 0f
+/color-source-3/add-grad/x-end, 1f
+/color-source-3/add-grad/x-start, 0.2f
+/color-source-3/add-grad/enabled, False
+         ]]>    
+    </Script>
+
+    <Script Name="/util/reset-buffer" Enabled="false"> 
+      <![CDATA[  
+/buffer/set/amount, 1f
+/buffer/set/color, 0f, 0f, 0f
+/buffer/sampler/reverse-source0, False
+/buffer/sampler/reverse-source1, False
+/buffer/sampler/reverse-source2, False
+/buffer/sampler/enabled, True    
+    ]]>    
+    </Script>
+    
+    <Script Name="/util/reset" Enabled="true">
+      <![CDATA[
+/1/messages, ["", "", "", "", "", "", "", "", ""]
+
+/util/reset-detectors-1/.
+/util/reset-detectors-2/.
+/util/reset-detectors-3/.
+/util/reset-field/.
+/util/reset-colors-1/.
+/util/reset-colors-2/.
+/util/reset-colors-3/.
+/util/reset-buffer/.    
+          ]]>    
+    </Script>
+    
+    <!--<Namespace Name="/scene" >-->
+    <Script Name="/scene/blank" Enabled="true">
+      <![CDATA[
+/1/messages, ["", "", "", "", "", "", "", "", ""]
+
+/thud-detector/update, 0f
+/tap-detector/update, 0f
+/click-detector/update, 0f    
+/color-source-3/grad/amount, 0f
+/color-source-2/block/amount, 0f
+/color-source-1/fade/time, 1f
+/color-source-1/block/position, 0f
+/buffer/sampler/reverse-source0, false 
+/color-source-3/grad/enabled, true
+/color-source-3/fade/enabled, false
+/color-source-3/add-grad/enabled, false
+/tap-detector/input-range, 0.1f,1f
+
+/color-source-2/block/color, 0f,0.1f,0.5f
+/color-source-2/block1/color, 0f,0.3f,0.7f
+/color-source-2/block2/color, 0f,0.7f,0.3f
+
+/util/reset/.
+
+    ]]>
+    </Script>
+
+
+    <Script Name="/scene/here-i-am" Enabled="false">
+      <![CDATA[
+/util/reset/.
+/thud-detector/output-range, 0f, 100f
+/1/messages, ["", "", "", "/thud-detector/update", "", "/tap-detector/update", "", "", ""]
+
+/color-source-1/fade/time, 1f
+/thud-detector/update, 0f
+/tap-detector/update, 0f
+/click-detector/update, 0f    
+/color-source-3/grad/amount, 0f
+/thud-detector/output-range, 0f,100f
+
+/tap-detector/input-range, 0.1f,1f
+/color-source-1/block/position, 0f
+/buffer/sampler/reverse-source0, false
+/color-source-3/grad/enabled, true
+/color-source-3/fade/enabled, false
+/color-source-3/add-grad/enabled, false
+/tap-detector/input-range, 0.1f,1f
+/color-source-2/block/color, 0f,0.1f,0.5f
+/color-source-2/block1/color, 0f,0.3f,0.7f
+/color-source-2/block2/color, 0f,0.7f,0.3f
+
+    ]]>
+    </Script>
+
+    <Script Name="/scene/feet" Enabled="false">
+      <![CDATA[
+/util/reset/.
+/thud-detector/output-range, 0f, 100
+/1/messages, ["/growl-detector/update", "", "/thud-detector/update", "", "", "/tap-detector/update", "", "", ""]
+
+/color-source-1/fade/time, 1f
+/thud-detector/update, 0f
+/tap-detector/update, 0f
+/click-detector/update, 0f 
+/color-source-2/block/amount, 0f
+/color-source-3/grad/amount, 0f
+/color-source-3/grad/start, 0f, 0f, 0f
+/color-source-3/grad/end, 0.8f, 0.4f, 1.8f
+/color-source-3/grad/x-start, 0.15f
+/color-source-3/grad/x-end, 1f
+
+/tap-detector/input-range, 0.1f,1f
+/color-source-1/block/position, 0f
+/buffer/sampler/reverse-source0, false
+/color-source-3/grad/enabled, true
+/color-source-3/fade/enabled, false
+/color-source-3/add-grad/enabled, false
+/tap-detector/input-range, 0.1f,1f
+/color-source-2/block/color, 0f,0.1f,0.5f
+/color-source-2/block1/color, 0f,0.3f,0.7f
+/color-source-2/block2/color, 0f,0.7f,0.3f
+
+    ]]>
+    </Script>
+
+
+    <Script Name="/scene/butterflies" Enabled="false">
+      <![CDATA[
+/util/reset/.      
+/thud-detector/output-range, 0f, 100f
+/1/messages, ["", "/dblbass-detector/update", "", "", "/dblbass-detector-3/update", "/dblbass-detector-2/update", "/dblbass-detector-4/update", "", ""]
+/thud-detector/update, 0f
+/tap-detector/update, 0f
+/click-detector/update, 0f 
+/color-source-3/grad/amount, 0f
+/color-source-3/grad/end, 0f, 0f, 0f
+/color-source-3/grad/x-start, 0f
+/color-source-1/fade/time, 1f 
+/color-source-2/block/size, 20f
+/color-source-1/block/position, 0f
+/buffer/sampler/reverse-source0, false
+/color-source-3/grad/enabled, true
+/color-source-3/fade/enabled, false
+/color-source-3/add-grad/enabled, false
+/tap-detector/input-range, 0.1f,1f
+/color-source-2/block/color, 0f,0.1f,0.5f
+/color-source-2/block1/color, 0f,0.3f,0.7f
+/color-source-2/block2/color, 0f,0.7f,0.3f
+
+   ]]>
+    </Script>
+
+    <Script Name="/scene/reich" Enabled="false">
+      <![CDATA[
+/util/reset/.      
+/1/messages, ["", "/subbass-detector/update", "", "/bell-detector-3/update", "/bell-detector-2/update", "/bell-detector/update", "", "", ""]
+/thud-detector/update, 0f
+/tap-detector/update, 0f
+/click-detector/update, 0f 
+/color-source-3/grad/amount, 0f
+/color-source-3/grad/start, 0.1f, 0.2f, 0f
+/color-source-3/grad/end, 0.0f, 0f, 0f
+/color-source-3/grad/x-start, 0f
+/color-source-3/grad/x-end, 0.25f
+
+/color-source-1/fade/time, 10f
+
+/color-source-2/block/color, 0f,0.1f,0.5f
+/color-source-2/block1/color, 0f,0.3f,0.7f
+/color-source-2/block2/color, 0f,0.7f,0.3f
+
+/color-source-2/fade/time, 1f
+/color-source-2/shift/enabled, true
+/color-source-2/block/enabled, true
+/color-source-2/block/size, 4f
+/color-source-2/block1/enabled, false
+/color-source-2/block2/enabled, false
+/color-source-2/block/color, 0.2f, 0.1f, 0.3f
+/color-source-1/block/position, 0f
+/buffer/sampler/reverse-source0, false
+/color-source-3/grad/enabled, true
+/color-source-3/fade/enabled, false
+/color-source-3/add-grad/enabled, false 
+/tap-detector/input-range, 0.1f,1f
+    ]]>
+    </Script>
+
+    <Script Name="/scene/clouds" Enabled="false">
+      <![CDATA[
+/util/reset/.      
+/thud-detector/output-range, 0f, 100f
+/1/messages, ["", "/dblbass-detector/update", "", "", "/dblbass-detector-3/update", "/dblbass-detector-2/update", "/dblbass-detector-4/update", "", ""]
+/color-source-2/block/color, 0f,0.1f,0.5f
+/color-source-2/block1/color, 0f,0.3f,0.7f
+/color-source-2/block2/color, 0f,0.7f,0.3f
+
+/thud-detector/update, 0f
+/tap-detector/update, 0f
+/click-detector/update, 0f 
+/color-source-3/grad/amount, 0f
+/color-source-3/grad/end, 0f, 0f, 0f
+/color-source-3/grad/x-start, 0f
+/color-source-1/fade/time, 1f 
+/color-source-2/block/size, 20f
+/color-source-2/fade/time, 10f
+/color-source-2/shift/enabled, true
+/color-source-2/block/enabled, true
+/color-source-2/block1/enabled, true
+/color-source-2/block2/enabled, true
+/color-source-2/block/color, 0f,0.1f,0.5f
+/color-source-2/fade/time, 0.3f
+/color-source-2/fade/color, 0.003f, 0.003f, 0.000002f
+/color-source-1/block/position, 0f
+/buffer/sampler/reverse-source0, false
+/color-source-3/grad/enabled, true
+/color-source-3/fade/enabled, false
+/color-source-3/add-grad/enabled, false
+/tap-detector/input-range, 0.1f,1f
+    ]]>
+    </Script>
+
+    <Script Name="/scene/tabla" Enabled="false">
+      <![CDATA[
+/util/reset/.      
+/thud-detector/output-range, 0f, 100f
+/1/messages, ["", "/tab-detector/update", "", "/thud-detector/update", "", "/tap-detector/update", "", "", ""]
+
+/color-source-1/fade/time, 0.6f
+/thud-detector/update, 0f
+/tap-detector/update, 0f
+/click-detector/update, 0f    
+/color-source-3/grad/amount, 0f
+/thud-detector/output-range, 270f,340f
+/color-source-2/block/color, 0f,0.1f,0.5f
+/color-source-2/block1/color, 0f,0.3f,0.7f
+/color-source-2/block2/color, 0f,0.7f,0.3f
+
+/tap-detector/input-range, 0.1f,1f
+/color-source-1/block/position, 0f
+/buffer/sampler/reverse-source0, false
+/color-source-3/grad/enabled, true
+/color-source-3/fade/enabled, false
+/color-source-3/add-grad/enabled, false
+/tap-detector/input-range, 0.1f,1f
+    ]]>
+    </Script>
+
+    <Script Name="/scene/sea" Enabled="false">
+      <![CDATA[
+/util/reset/.      
+/thud-detector/output-range, 0f, 100f
+/1/messages, ["", "", "", "/thud-detector/update", "", "/tap-detector/update", "", "", ""]
+
+/color-source-2/block/color, 0f,0.1f,0.5f
+/color-source-2/block1/color, 0f,0.3f,0.7f
+/color-source-2/block2/color, 0f,0.7f,0.3f
+
+/color-source-1/fade/time, 10f
+/thud-detector/update, 0f
+/tap-detector/update, 0f
+/click-detector/update, 0f    
+/color-source-3/grad/amount, 0f
+/thud-detector/output-range, 0f,100f
+
+/tap-detector/input-range, 0.1f,1f
+/color-source-1/block/position, 0.375f
+
+/buffer/sampler/reverse-source0, true 
+/color-source-3/grad/enabled, true
+/color-source-3/fade/enabled, false
+/color-source-3/add-grad/enabled, false
+/tap-detector/input-range, 0.1f,1f
+    ]]>
+    </Script>
+
+
+    <Script Name="/scene/dawn" Enabled="false">
+      <![CDATA[
+/util/reset/.      
+/thud-detector/output-range, 0f, 100f
+/1/messages, ["", "", "/sun-detector/update", "", "/thud-detector/update", "/tap-detector/update", "", "", ""]
+
+/color-source-2/block/color, 0f,0.1f,0.5f
+/color-source-2/block1/color, 0f,0.3f,0.7f
+/color-source-2/block2/color, 0f,0.7f,0.3f
+
+/color-source-1/fade/time, 10f
+/thud-detector/update, 0f
+/tap-detector/update, 0f
+/click-detector/update, 0f    
+/color-source-3/grad/amount, 0f
+/thud-detector/output-range, 0f,100f
+
+/tap-detector/input-range, 0.1f,1f
+/color-source-1/block/position, 0.375f
+
+/buffer/sampler/reverse-source0, true 
+
+/color-source-3/add-grad/amount, 0f
+/color-source-3/add-grad/start, 0.1f, 0.4f, 0.6f
+/color-source-3/add-grad/end, 0.0f, 0f, 0.003f
+/color-source-3/add-grad/x-start, 0f
+/color-source-3/add-grad/x-end, 0.1f
+/color-source-3/fade/color, 0.2f, 0.6f, 0.7f
+/color-source-3/grad/enabled, false
+/color-source-3/fade/enabled, true
+/color-source-3/add-grad/enabled, true
+/tap-detector/input-range, 0.1f,0.3f
+    ]]>
+    </Script>
+
+
+    <Script Name="/scene/bricks" Enabled="false">
+      <![CDATA[
+/util/reset/.      
+/thud-detector/output-range, 0f, 100f
+/1/messages, ["", "/thud-detector/update", "", "/tap-detector/update", "", "", "", "", ""]
+
+/color-source-1/fade/time, 1f
+/thud-detector/update, 0f
+/tap-detector/update, 0f
+/click-detector/update, 0f    
+/color-source-3/grad/amount, 0f
+/thud-detector/output-range, 200f,230f
+
+/tap-detector/input-range, 0.1f,1f
+/color-source-1/block/position, 0.375f
+/buffer/sampler/reverse-source0, true
+/color-source-3/grad/enabled, true
+/color-source-3/fade/enabled, false
+/color-source-3/add-grad/enabled, false
+/tap-detector/input-range, 0.1f,1f
+/color-source-2/block/color, 0f,0.1f,0.5f
+/color-source-2/block1/color, 0f,0.3f,0.7f
+/color-source-2/block2/color, 0f,0.7f,0.3f
+
+    ]]>
+    </Script>
+
+    
+    <Script Name="/scene/heart" Enabled="false">
+      <![CDATA[
+/util/reset/.      
+/thud-detector/output-range, 0f, 100f
+/1/messages, ["/tap-detector/update", "/thud-detector/update",  "/dblbass-detector/update", "/dblbass-detector-3/update", "/dblbass-detector-2/update", "/dblbass-detector-4/update", "", ""]
+/thud-detector/update, 0f
+/tap-detector/update, 0f
+/click-detector/update, 0f 
+/color-source-3/grad/amount, 0f
+/color-source-3/grad/end, 0f, 0f, 0f
+/color-source-3/grad/x-start, 0f
+/color-source-1/fade/time, 1f 
+/color-source-2/block/size, 20f
+/color-source-2/fade/time, 10f
+/color-source-2/shift/enabled, true
+/color-source-2/block/enabled, true
+/color-source-2/block1/enabled, true
+/color-source-2/block2/enabled, true
+/color-source-2/block/color, 0f,0.1f,0.5f
+/color-source-2/fade/time, 0.3f
+/color-source-2/fade/color, 0.003f, 0.003f, 0.000002f
+/color-source-1/block/position, 0f
+/buffer/sampler/reverse-source0, false
+/color-source-3/grad/enabled, true
+/color-source-3/fade/enabled, false
+/color-source-3/add-grad/enabled, false
+/tap-detector/input-range, 0.1f,1f
+/dblbass-detector-4/output-range, 0f,720f
+/color-source-2/block/color, 0.2f,0f,0.5f
+/color-source-2/block1/color, 0.3f,0.2f,0.2f
+/color-source-2/block2/color, 0f,0.7f,0.3f
+/tap-detector/input-range, 0.1f,0.3f
+/thud-detector/output-range, 100f, 140f
+/color-source-2/fade/time, 0.05f
+/color-source-1/fade/time, 1f
+/tap-detector/input-range, 0.5f,1f
+/color-source-2/fade/color, 0.9f,0.9f,0.9f 
+    ]]>
+    </Script>
+    
+    <!--</Namespace>-->
+  </Namespace>
+
+  <!--/thud-detector/output-range, 0f, 100f
+  /1/messages, ["", "", "", "", "/thud-detector/update", "/tap-detector/update", "", "", ""]
+
+  /color-source-1/fade/time, 2f
+  /thud-detector/update, 0f
+  /tap-detector/update, 0f
+  /click-detector/update, 0f
+  /color-source-3/grad/amount, 0f
+  /thud-detector/output-range, 0f,120f
+  # /thud-detector/lightness, 0.75f
+  # /thud-detector/saturation, 0.6f
+  # /tap-detector/input-range, 0f,1f-->
+
+</Host>

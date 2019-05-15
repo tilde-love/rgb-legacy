@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Rug.Osc.Connection</name>
+    </assembly>
+    <members>
+        <member name="M:Rug.Osc.Connection.NetworkConnectionInfo.ToString">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>

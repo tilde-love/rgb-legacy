@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Rug.Osc.Packaging</name>
+    </assembly>
+    <members>
+        <member name="T:Rug.Osc.Packaging.OscPackageQueue">
+            <summary>
+            Holds a queue of OSC bundles that will be attempted to be sent repeatedly until hey are confirmed.
+            </summary>
+        </member>
+    </members>
+</doc>

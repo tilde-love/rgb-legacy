@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<Plugins> 
+  <!-- Plugin Name="OscNode.Drawing" Path="OscNode.Drawing.dll" / -->
+  <Plugin Name="OscNode.OpenTK" Path="OscNode.OpenTK.dll" />
+  <!--<Plugin Name="OscNode.Kinect" Path="OscNode.Kinect.dll" />-->
+  <!--<Plugin Name="OscNode.AForge" Path="OscNode.AForge.dll" />-->
+  <!--<Plugin Name="OscNode.Voice" Path="OscNode.Voice.dll" />-->
+  <!-- Plugin Name="OscNode.EAM" Path="OscNode.EAM.dll" / -->
+  <Plugin Name="OscNode.Rgb" Path="OscNode.Rgb.dll" />
+  <!-- Plugin Name="OscNode.Rpi" Path="OscNode.Rpi.dll" /-->
+  <!-- Plugin Name="OscNode.FMOD" Path="OscNode.FMOD.dll" / -->
+</Plugins>
