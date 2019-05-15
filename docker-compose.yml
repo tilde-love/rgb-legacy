@@ -1,0 +1,22 @@
+version: "3.3"
+
+services:
+  rgb-legacy:
+    image: tildelove/rgb-legacy
+    container_name: rgb-legacy
+    restart: always
+    ports:
+      - "7888:7888"
+      - "8888:8888"
+      - "9100:9100"
+      - "7005:7005"
+      - "24936:24936"
+      - "28537:28537"
+    network_mode: "host"
+    # networks:
+    #  - internal
+    volumes:
+      - "./projects:/projects"
+
+networks:
+  internal:
