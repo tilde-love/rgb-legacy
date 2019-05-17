@@ -98,18 +98,18 @@
     </Rgb.BufferRgbF>
 
     <Rgb.BufferRgbF Name="/buffer" Width="400" Height="400" TimingSource="/frame-pulse" Debug="false">
-      <!-- Rgb.Effects.Set Name="/set" Color="0,0,0" Amount="1" Enabled="True" / -->
+      <Rgb.Effects.Set Name="/set-2" Color="0,1,0" Amount="1" Enabled="True" />
       <!--<Rgb.Effects.Multiply Name="/fade" Color="0.4, 0.4, 0.4" Amount="1" Time="0.001" />
       <Rgb.Effects.Stripe Name="/stripe" Color="0.7,0.2,0.9" Amount="1" Speed="0.01" Orientation="Horizontal" />-->
-      <Rgb.Effects.Sampler Name="/sampler"
+      <!-- Rgb.Effects.Sampler Name="/sampler"
         Field="/field"
         Source0="/color-source-1"
         Source1="/color-source-2"
         Source2="/color-source-3"                    
         ReverseSource0="false"
         Enabled="True"
-      />
-      <!--<Rgb.Effects.Set Name="/set" Color="1,0,0" Amount="1" />-->
+      / -->
+      <!-- Rgb.Effects.Set Name="/set" Color="1,0,0" Amount="1" / -->
     </Rgb.BufferRgbF>
 
     <Rgb.LedMapping Name="/mapping" Buffer="/buffer" AutoScale="True">
