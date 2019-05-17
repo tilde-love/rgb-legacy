@@ -3,7 +3,13 @@
     <Sys/>
     <Meta/>
 
-    <Tick Name="/frame-pulse" Interval="16" />
+    <!--<SlipOsc Name="/cave-input-1" Port="/dev/ttyACM0" />
+    <SlipOsc Name="/cave-input-2" Port="/dev/ttyACM1" />-->
+
+    <!--<SlipOsc Name="/cave-input-1" Port="Win32NT:COM7;Unix:/dev/ttyACM0" />-->
+    <!--<SlipOsc Name="/cave-input-1" Port="/dev/ttyACM0" />-->
+
+    <Tick Name="/frame-pulse" Interval="1" />
     <Tick Name="/distace-pulse" Interval="10000" />
 
     <Rgb.FftInput8 Name="/1" CompressionSpeed="0" Threshold="0.07" Gain="1" Broadcast="false" Messages=",,,,,,,," />
@@ -27,24 +33,48 @@
     <Rgb.ValueDriver Name="/tab-detector" InputRange="0,1" OutputRange="0.0,1" Message="/thud-detector/lightness" />
     
     <Rgb.ValueDriver Name="/sun-detector" InputRange="0.4,1" OutputRange="0.0,1" Message="/color-source-3/add-grad/amount" />
+    
+    <!--<Rgb.AnalogInput8 Name="/cave-2" CompressionSpeed="0" Threshold="0.5" Gain="1" Broadcast="true" Messages="/bg-color/update,/sub/update,/c-2-low-l/update,/sub-color/update,/color-source-3/grad/amount,/c-2-low-h/update,/high-color/update,/high/update" />
 
-    <Rgb.BufferRgbF Name="/field" Width="100" Height="100" TimingSource="/distace-pulse" Debug="false">
+    <Rgb.ValueDriver Name="/c-2-low-l" InputRange="0.2,0.4" OutputRange="0.0,0.5" Message="/c-2-low-h/lightness" />
+    -->
+    <!--Rgb.ValueDriver Name="/c-2-low-s" InputRange="0.2,1" OutputRange="0.0,1" Message="/c-2-low-h/saturation" /-->
+    <!--
+    <Rgb.HueDriver Name="/c-2-low-h" InputRange="0.2,1" OutputRange="60,120" Saturation="1" Lightness="0.5" Message="/color-source-2/block/color" />
+
+    <Rgb.ValueDriver Name="/sub" InputRange="0.15,1" OutputRange="0.0,0.2" Message="/sub-color/lightness" />
+    <Rgb.HueDriver Name="/sub-color" InputRange="0.1,1" OutputRange="140,200" Saturation="1" Lightness="0.5" Message="/color-source-1/grad/end" />
+
+    <Rgb.ValueDriver Name="/high" InputRange="0.1,0.2" OutputRange="0.01,0.0" Message="/high-color/lightness" />
+    <Rgb.HueDriver Name="/high-color" InputRange="0.1,0.5" OutputRange="270,300" Saturation="1" Lightness="0.5" Message="/color-source-1/grad/start" />
+
+    <Rgb.HueDriver Name="/bg-color" InputRange="0.1,1" OutputRange="0,360" Saturation="0.7" Lightness="0.1" Message="/color-source-3/grad/start" />-->
+
+    <Rgb.BufferRgbF Name="/field" Width="400" Height="400" TimingSource="/distace-pulse" Debug="false">
       <Rgb.Effects.DistanceField Name="/distance" Enabled="True">
         <Rgb.Effects.DistanceFieldCenter Name="/r0" Channel="0" Position="0.5,0.5" />
         <Rgb.Effects.DistanceFieldCenter Name="/g0" Channel="1" Position="0.5,0.25" Randomise="True" />
         <Rgb.Effects.DistanceFieldCenter Name="/g1" Channel="1" Position="0.5,0.25" Randomise="True" />
         <Rgb.Effects.DistanceFieldCenter Name="/g2" Channel="1" Position="0.5,0.25" Randomise="True" />
+        <!--<Rgb.Effects.DistanceFieldCenter Name="/b0" Channel="2" Position="0.25,0.5" />
+        <Rgb.Effects.DistanceFieldCenter Name="/b1" Channel="2" Position="0.75,0.5" />-->
         <Rgb.Effects.DistanceFieldCenter Name="/hem" Channel="2" Position="0.5,0.5" />
       </Rgb.Effects.DistanceField>
     </Rgb.BufferRgbF>
     
-    <Rgb.BufferRgbF Name="/color-source-1" Width="100" Height="1" TimingSource="/frame-pulse" Debug="false">
+    <Rgb.BufferRgbF Name="/color-source-1" Width="200" Height="2" TimingSource="/frame-pulse" Debug="false">
+      <!--<Rgb.Effects.Set Name="/set" Color="0,0,0" Amount="1" />-->
+      <!--<Rgb.Effects.Gradient Name="/grad" Start="0,0,1" End="0,0,0" Amount="1" />-->
+
       <Rgb.Effects.Multiply Name="/fade" Color="0.7, 0.2, 0.8" Amount="1" Time="1"  Enabled="True"/>
       <Rgb.Effects.Shift Name="/shift"  Enabled="True"/>
       <Rgb.Effects.Block Name="/block" Color="1,0,0" Amount="0" Enabled="True"/>
     </Rgb.BufferRgbF>
 
-    <Rgb.BufferRgbF Name="/color-source-2" Width="100" Height="1" TimingSource="/frame-pulse" Debug="false">
+    <Rgb.BufferRgbF Name="/color-source-2" Width="200" Height="2" TimingSource="/frame-pulse" Debug="false">
+      <!--<Rgb.Effects.Multiply Name="/fade" Color="0.9, 0.9, 0.9" Amount="1" Time="1" />
+      <Rgb.Effects.Shift Name="/shift" />
+      <Rgb.Effects.Block Name="/block" Amount="1" />-->
       <Rgb.Effects.Multiply Name="/fade" Color="0.7, 0.7, 0.7" Amount="1" Time="0.025" Enabled="True" />
       <Rgb.Effects.Shift Name="/shift" Enabled="False"/>
       <Rgb.Effects.Splat Name="/block" Color="0,0.1,0.5" Amount="0" Trigger="0.3" Size="20" CenterRange="0, 0.5" Enabled="True"/>
@@ -52,23 +82,34 @@
       <Rgb.Effects.Splat Name="/block2" Color="0,0.7,0.3" Amount="0" Trigger="0.9" Size="10" CenterRange="0, 0.5" Enabled="True"/>
     </Rgb.BufferRgbF>
 
-    <Rgb.BufferRgbF Name="/color-source-3" Width="100" Height="1" TimingSource="/frame-pulse" Debug="false">
+    <Rgb.BufferRgbF Name="/color-source-3" Width="400" Height="2" TimingSource="/frame-pulse" Debug="false">
+      <!--<Rgb.Effects.Gradient Name="/grad" Start="0.1,0,0" End="0,0.1,0.1" Amount="1" />-->
+      <!--<Rgb.Effects.Set Name="/set" Color="0,0,0" Amount="1" />-->
+      <!--<Rgb.Effects.Gradient Name="/grad" Start="0,0,0" End="0.1, 0.6, 0.3" XStart="0.5" XEnd="1" Amount="0" />-->
       <Rgb.Effects.Gradient Name="/grad" Start="0,0,0" End="0.4, 0.2, 0.8" XStart="0.2" XEnd="1" Amount="1"  Enabled="True"/>
 
       <Rgb.Effects.Multiply Name="/fade" Color="0.2, 0.2, 0.99" Amount="1" Time="0.6" Enabled="False" />
       <Rgb.Effects.AddGradient Name="/add-grad" Start="0,0,0" End="0.4, 0.2, 0.8" XStart="0.2" XEnd="1" Amount="1" Enabled="False"/>
+      <!--<Rgb.Effects.Gradient Name="/grad" Start="1,0,0" End="0,0,0" Amount="1" />-->
+
+      <!--<Rgb.Effects.Multiply Name="/fade" Color="0.7, 0.2, 0.8" Amount="1" Time="1" />
+      <Rgb.Effects.Shift Name="/shift" />
+      <Rgb.Effects.Block Name="/block" Color="1,0,0" Amount="1"/>-->
     </Rgb.BufferRgbF>
 
-    <Rgb.BufferRgbF Name="/buffer" Width="100" Height="100" TimingSource="/frame-pulse" Debug="false">
-      <Rgb.Effects.Set Name="/set" Color="0,0,0" Amount="1" Enabled="True" />
-      <Rgb.Effects.Sampler Name="/sampler"
+    <Rgb.BufferRgbF Name="/buffer" Width="400" Height="400" TimingSource="/frame-pulse" Debug="false">
+      <Rgb.Effects.Set Name="/set-2" Color="0,1,0" Amount="1" Enabled="True" />
+      <!--<Rgb.Effects.Multiply Name="/fade" Color="0.4, 0.4, 0.4" Amount="1" Time="0.001" />
+      <Rgb.Effects.Stripe Name="/stripe" Color="0.7,0.2,0.9" Amount="1" Speed="0.01" Orientation="Horizontal" />-->
+      <!-- Rgb.Effects.Sampler Name="/sampler"
         Field="/field"
         Source0="/color-source-1"
         Source1="/color-source-2"
         Source2="/color-source-3"                    
         ReverseSource0="false"
         Enabled="True"
-      />
+      / -->
+      <!-- Rgb.Effects.Set Name="/set" Color="1,0,0" Amount="1" / -->
     </Rgb.BufferRgbF>
 
     <Rgb.LedMapping Name="/mapping" Buffer="/buffer" AutoScale="True">
@@ -222,7 +263,196 @@
         <Point Name="/0" Position="0, 0.3803384" />
         <Point Name="/1" Position="0.08082156, 0.5050094" />
       </Rgb.LedLine>
-    </Rgb.LedMapping> 
+    </Rgb.LedMapping>
+    
+    <!--<Rgb.LedMapping Name="/mapping" Buffer="/buffer" AutoScale="True" >-->
+      <!--<Rgb.LedLine Name="/0" Count="5">-->
+        <!--<Point Name="/0" Position="6,10.5" />-->
+        <!--<Point Name="/1" Position="6.2,11.7" />-->
+        <!--<Point Name="/2" Position="7.3,13.2" />-->
+        <!--<Point Name="/3" Position="9,14" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/1" Count="9">-->
+        <!--<Point Name="/4" Position="9.5,14" />-->
+        <!--<Point Name="/5" Position="9.5,11.5" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/2" Count="9">-->
+        <!--<Point Name="/6" Position="8,10.9" />-->
+        <!--<Point Name="/7" Position="8.3,12.2" />-->
+        <!--<Point Name="/8" Position="8.7,13.5" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/3" Count="5">-->
+        <!--<Point Name="/9" Position="8.7,13.5" />-->
+        <!--<Point Name="/10" Position="7.9,12.8" />-->
+        <!--<Point Name="/11" Position="7.2,11.6" />-->
+        <!--<Point Name="/12" Position="7,10.8" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/4" Count="13">-->
+        <!--<Point Name="/13" Position="6,10" />-->
+        <!--<Point Name="/14" Position="7.2,7.2" />-->
+        <!--<Point Name="/15" Position="10,6" />-->
+        <!--<Point Name="/16" Position="12.5,7" />-->
+        <!--<Point Name="/17" Position="14,10" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/5" Count="6">-->
+        <!--<Point Name="/18" Position="10,6.25" />-->
+        <!--<Point Name="/19" Position="10,8.65" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/6" Count="10">-->
+        <!--<Point Name="/20" Position="11,10" />-->
+        <!--<Point Name="/21" Position="10.8,9.6" />-->
+        <!--<Point Name="/22" Position="10.4,9.1" />-->
+        <!--<Point Name="/23" Position="9.5,9.1" />-->
+        <!--<Point Name="/24" Position="9.2,9.6" />-->
+        <!--<Point Name="/25" Position="9,10" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/7" Count="6">-->
+        <!--<Point Name="/26" Position="8.5,8.9" />-->
+        <!--<Point Name="/27" Position="8,10" />-->
+        <!--<Point Name="/28" Position="8.5,11" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/8" Count="6">-->
+        <!--<Point Name="/29" Position="9.5,10" />-->
+        <!--<Point Name="/30" Position="9.7,9.4" />-->
+        <!--<Point Name="/31" Position="10.3,9.4" />-->
+        <!--<Point Name="/32" Position="10.5,10" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/9" Count="6">-->
+        <!--<Point Name="/33" Position="11.5,9.2" />-->
+        <!--<Point Name="/34" Position="12,10" />-->
+        <!--<Point Name="/35" Position="11.5,11" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/10" Count="9">-->
+        <!--<Point Name="/36" Position="10.5,11.5" />-->
+        <!--<Point Name="/37" Position="10.5,14" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/11" Count="5">-->
+        <!--<Point Name="/38" Position="11.3,13.5" />-->
+        <!--<Point Name="/39" Position="12.1,12.6" />-->
+        <!--<Point Name="/40" Position="12.8,11.6" />-->
+        <!--<Point Name="/41" Position="13,11" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/12" Count="9">-->
+        <!--<Point Name="/42" Position="12,11.1" />-->
+        <!--<Point Name="/43" Position="11.6,12.4" />-->
+        <!--<Point Name="/44" Position="10.7,13.4" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/13" Count="5">-->
+        <!--<Point Name="/45" Position="11,14" />-->
+        <!--<Point Name="/46" Position="12.5,13.5" />-->
+        <!--<Point Name="/47" Position="14,11.8" />-->
+        <!--<Point Name="/48" Position="14,10.5" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/14" Count="13">-->
+        <!--<Point Name="/49" Position="10,1.8" />-->
+        <!--<Point Name="/50" Position="6.8,6.9" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/15" Count="13">-->
+        <!--<Point Name="/51" Position="4,7.6" />-->
+        <!--<Point Name="/52" Position="6.5,0" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/16" Count="6">-->
+        <!--<Point Name="/53" Position="1.8,4.3" />-->
+        <!--<Point Name="/54" Position="2.3,7.2" />-->
+      <!--</Rgb.LedLine>-->
+
+
+      <!--<Rgb.LedLine Name="/17" Count="13">-->
+        <!--<Point Name="/55" Position="2.3,7.2" />-->
+        <!--<Point Name="/56" Position="6.3,12.2" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/18" Count="13">-->
+        <!--<Point Name="/57" Position="6.3,15" />-->
+        <!--<Point Name="/58" Position="0,10.5" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/19" Count="6">-->
+        <!--<Point Name="/59" Position="1.6,15.5" />-->
+        <!--<Point Name="/60" Position="5,16" />-->
+      <!--</Rgb.LedLine>-->
+
+
+
+      <!--<Rgb.LedLine Name="/20" Count="13">-->
+        <!--<Point Name="/61" Position="5.5,16" />-->
+        <!--<Point Name="/62" Position="11.6,14" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/21" Count="13">-->
+        <!--<Point Name="/63" Position="13.8,15.2" />-->
+        <!--<Point Name="/64" Position="7.6,20" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/22" Count="6">-->
+        <!--<Point Name="/65" Position="12.8,20" />-->
+        <!--<Point Name="/66" Position="14.7,16.6" />-->
+      <!--</Rgb.LedLine>-->
+
+
+
+      <!--<Rgb.LedLine Name="/23" Count="13">-->
+        <!--<Point Name="/67" Position="14.7,16.3" />-->
+        <!--<Point Name="/68" Position="14.5,10" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/24" Count="13">-->
+        <!--<Point Name="/69" Position="16.9,7.8" />-->
+        <!--<Point Name="/70" Position="18.5,15.5" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/25" Count="6">-->
+        <!--<Point Name="/71" Position="20,11.3" />-->
+        <!--<Point Name="/72" Position="18.2,7.4" />-->
+      <!--</Rgb.LedLine>-->
+
+
+      <!--<Rgb.LedLine Name="/26" Count="13">-->
+        <!--<Point Name="/73" Position="17.8,7.3" />-->
+        <!--<Point Name="/74" Position="11.3,5.8" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/27" Count="13">-->
+        <!--<Point Name="/75" Position="10,3.8" />-->
+        <!--<Point Name="/76" Position="18,3.7" />-->
+      <!--</Rgb.LedLine>-->
+
+      <!--<Rgb.LedLine Name="/28" Count="6">-->
+        <!--<Point Name="/77" Position="14.3,0" />-->
+        <!--<Point Name="/78" Position="10.0,1.8" />-->
+      <!--</Rgb.LedLine>-->
+
+
+      <!--&lt;!&ndash;<Rgb.LedLine Name="/5" Count="6">-->
+        <!--<Point Name="/18" Position="," />-->
+      <!--</Rgb.LedLine>&ndash;&gt;-->
+
+    <!--</Rgb.LedMapping>-->
+
+    <!--<Rgb.OpenPixelControlClient Name="/opc"
+                                Address="net.tcp://127.0.0.1:7890" Channel="0"
+                                Mapping="/mapping"
+                                TimingSource="/frame-pulse"
+                                BrgOrder="true"
+                                Gain="2"
+                                />-->
+
 
     <Rgb.XOscRgb Name="/xosc"
                 Address="net.tcp://192.168.0.103:9100" Channel="1"
@@ -237,8 +467,41 @@
                                 Buffer="/buffer"
                                 TimingSource="/frame-pulse"
                                 />
-								
-	<SceneGroup Name="/scenes" >
+
+    <!--<Rpi.FrameBuffer Name="/framebuffer"
+                     Buffer="/buffer"
+                     TimingSource="/frame-pulse"
+                     />-->
+
+<!-- 
+    1, 0 blank
+    2, 0 i am here
+    3, 0 feet
+    4, 0 sea
+    5, 0 dawn
+    6, 0 reich
+    7, 0 clouds
+    8, 0 brick
+    9, 0 tabla
+    10, 0-5 heart
+    16, 0, blank
+    17, 0 i am here
+    
+/scene/blank
+/scene/here-i-am
+/scene/feet
+/scene/butterflies
+/scene/reich
+/scene/clouds
+/scene/tabla
+/scene/sea
+/scene/dawn
+/scene/heart
+/scene/bricks
+-->
+
+
+    <SceneGroup Name="/scenes" >
       <Scene Id="1"  Name="/1-blank"    ><Script Name="/0" Enabled="false"><![CDATA[/scene/blank/.]]></Script></Scene>
       <Scene Id="2"  Name="/2-i-am-here"><Script Name="/0" Enabled="false"><![CDATA[/scene/here-i-am/.]]></Script></Scene>
       <Scene Id="3"  Name="/3-feet"     ><Script Name="/0" Enabled="false"><![CDATA[/scene/feet/.]]></Script></Scene>
@@ -758,7 +1021,7 @@
     </Script>
 
     
-    <Script Name="/scene/heart" Enabled="true">
+    <Script Name="/scene/heart" Enabled="false">
       <![CDATA[
 /util/reset/.      
 /thud-detector/output-range, 0f, 100f
