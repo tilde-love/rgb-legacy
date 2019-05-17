@@ -38,13 +38,13 @@
       </Rgb.Effects.DistanceField>
     </Rgb.BufferRgbF>
     
-    <Rgb.BufferRgbF Name="/color-source-1" Width="255" Height="1" TimingSource="/frame-pulse" Debug="false">
+    <Rgb.BufferRgbF Name="/color-source-1" Width="100" Height="1" TimingSource="/frame-pulse" Debug="false">
       <Rgb.Effects.Multiply Name="/fade" Color="0.7, 0.2, 0.8" Amount="1" Time="1"  Enabled="True"/>
       <Rgb.Effects.Shift Name="/shift"  Enabled="True"/>
       <Rgb.Effects.Block Name="/block" Color="1,0,0" Amount="0" Enabled="True"/>
     </Rgb.BufferRgbF>
 
-    <Rgb.BufferRgbF Name="/color-source-2" Width="255" Height="1" TimingSource="/frame-pulse" Debug="false">
+    <Rgb.BufferRgbF Name="/color-source-2" Width="100" Height="1" TimingSource="/frame-pulse" Debug="false">
       <Rgb.Effects.Multiply Name="/fade" Color="0.7, 0.7, 0.7" Amount="1" Time="0.025" Enabled="True" />
       <Rgb.Effects.Shift Name="/shift" Enabled="False"/>
       <Rgb.Effects.Splat Name="/block" Color="0,0.1,0.5" Amount="0" Trigger="0.3" Size="20" CenterRange="0, 0.5" Enabled="True"/>
@@ -52,7 +52,7 @@
       <Rgb.Effects.Splat Name="/block2" Color="0,0.7,0.3" Amount="0" Trigger="0.9" Size="10" CenterRange="0, 0.5" Enabled="True"/>
     </Rgb.BufferRgbF>
 
-    <Rgb.BufferRgbF Name="/color-source-3" Width="255" Height="1" TimingSource="/frame-pulse" Debug="false">
+    <Rgb.BufferRgbF Name="/color-source-3" Width="100" Height="1" TimingSource="/frame-pulse" Debug="false">
       <Rgb.Effects.Gradient Name="/grad" Start="0,0,0" End="0.4, 0.2, 0.8" XStart="0.2" XEnd="1" Amount="1"  Enabled="True"/>
 
       <Rgb.Effects.Multiply Name="/fade" Color="0.2, 0.2, 0.99" Amount="1" Time="0.6" Enabled="False" />
